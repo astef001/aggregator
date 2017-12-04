@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Results</title>
+</head>
+<body>
+{% for key,value in data.items %}
+    <ul>
+        <li>Name: {{key}}</li>
+        <li>Image link: {{value.image}}</li>
+        <li>Vendors:
+            <ul>
+                {% for vendor in value.vendor %}
+                    <li>{{vendor}}</li>
+                {% endfor %}
+            </ul>
+        </li>
+        <li>Links:
+            <ul>
+                {% for link in value.link %}
+                    <li>{{link}}</li>
+                {% endfor %}
+            </ul>
+        </li>
+        <li>Prices:
+            <ul>
+                {% for price in value.price %}
+                    <li>{{price}}</li>
+                {% endfor %}
+            </ul>
+        </li>
+    </ul>
+
+{% endfor %}
+</body>
+</html>
