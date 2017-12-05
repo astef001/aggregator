@@ -15,11 +15,13 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.views.generic.base import RedirectView
 
 import search.views
 
 urlpatterns = [
     url(r'^results_collector/', include('results_collector.urls')),
     url(r'^admin/', admin.site.urls),
-    url(r'^search/', search.views.search)
+    url(r'^search/', search.views.search),
+    url(r'^.*$', RedirectView.as_view(url='search/', permanent=False), name='index')
 ]
