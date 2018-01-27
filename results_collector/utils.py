@@ -38,17 +38,28 @@ def get_name_from_tag(tag):
     return tag.text
 
 
-def get_products(data, map, vendor):
+def get_data_map_from_object(object, prefix, extra_params=[]):
+    result = {
+        "tag": getattr(object, "%s_tag" % prefix),
+        "attribute": getattr(object, "%s_attribute" % prefix),
+        "value": getattr(object, "%s_value" % prefix)
+    }
+    for param in extra_params:
+        result[param] = getattr(object, "%s_%s" % (prefix,param))
+    return result
+
+
+def get_products(data, location, vendor):
     bs = BeautifulSoup(data)
     results = {}
-    product_map = map.get('product')
+    product_map = get_data_map_from_object(location, 'product')
     products = bs.findAll(product_map.get('tag'),
                           {product_map.get('attribute'): product_map.get('value')})
     for product in products:
-        image = get_attr(product, map.get('image'), get_image_from_tag)
-        link = get_attr(product, map.get('link'), get_link_from_tag)
-        price = get_attr(product, map.get('price'), get_price_from_tag, map.get('price').get('decimals'))
-        name = get_attr(product, map.get('name'), get_name_from_tag)
+        image = get_attr(product, get_data_map_from_object(location,"image"), get_image_from_tag)
+        link = get_attr(product, get_data_map_from_object(location,"link"), get_link_from_tag)
+        price = get_attr(product, get_data_map_from_object(location,"price"), get_price_from_tag, location.price_decimal)
+        name = get_attr(product, get_data_map_from_object(location,"name"), get_name_from_tag)
         results[name]={
             'vendor': [vendor],
             'image': image,

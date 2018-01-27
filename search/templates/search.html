@@ -5,10 +5,12 @@
     <title>Search</title>
 </head>
 <body>
-<form action="/results_collector/get_data/" method="get">
+<form action="/results_collector/get_data/" method="POST">
     {% csrf_token %}
-    {{ form }}
+    {{ form.as_ul }}
     <input type="submit" value="Submit" />
+    <br>
+    <a href="/add_search_place/">Add New Search Place</a>
 </form>
 </body>
 </html>
