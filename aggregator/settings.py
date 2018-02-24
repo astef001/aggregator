@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'results_collector',
-    'search'
+    'search',
+    'webpack_loader'
 ]
 
 MIDDLEWARE = [
@@ -123,4 +124,15 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     ('node_modules', os.path.join(BASE_DIR, 'node_modules')),
+    os.path.join(BASE_DIR, 'assets/js'),
 ]
+
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'BUNDLE_DIR_NAME': 'bundles/',
+        'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
+    }
+}
+
+
+TEST_DIRECT_STATIC = os.path.join(BASE_DIR, 'assets')

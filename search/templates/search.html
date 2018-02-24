@@ -1,3 +1,4 @@
+{% load render_bundle from webpack_loader %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,12 +6,14 @@
     <title>Search</title>
 </head>
 <body>
-<form action="/results_collector/get_data/" method="POST">
+<div id="root"></div>
+<!--<form action="/results_collector/get_data/" method="POST">
     {% csrf_token %}
     {{ form.as_ul }}
     <input type="submit" value="Submit" />
     <br>
     <a href="/add_search_place/">Add New Search Place</a>
-</form>
+</form>-->
 </body>
+{% render_bundle 'main' %}
 </html>

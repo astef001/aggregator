@@ -62,3 +62,24 @@ class SearchPlace(models.Model):
     name_value = models.CharField(max_length=100,
                                   blank=False,
                                   null=False)
+    category_tag = models.CharField(max_length=100,
+                                blank=False,
+                                null=False)
+    category_attribute = models.CharField(max_length=100,
+                                      blank=False,
+                                      null=False)
+    category_value = models.CharField(max_length=100,
+                                  blank=False,
+                                  null=False)
+
+
+
+class Category(models.Model):
+    id = models.IntegerField(primary_key=True, blank=False, null=False)
+    search_place = models.ForeignKey(SearchPlace)
+    name = models.CharField(max_length=100,
+                            blank=False,
+                            null=False)
+    link = models.CharField(max_length=100,
+                            blank=True,
+                            null=False)

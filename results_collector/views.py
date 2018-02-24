@@ -3,7 +3,6 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render
 import requests
-from .settings import WHERE_TO_SEARCH, DATA_MAP
 from utils import update_dict, get_products
 from search.models import SearchPlace
 
