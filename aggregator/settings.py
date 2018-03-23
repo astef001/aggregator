@@ -39,7 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'results_collector',
     'search',
+<<<<<<< HEAD
     'webpack_loader'
+=======
+    'djng'
+>>>>>>> 2efcbadcc5b83e9a011d0007e8a60fa280d21a5e
 ]
 
 MIDDLEWARE = [
@@ -57,7 +61,7 @@ ROOT_URLCONF = 'aggregator.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['/templates'],
+        'DIRS': ['/templates', '/search/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -78,9 +82,13 @@ WSGI_APPLICATION = 'aggregator.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'aggregator',
+        'USER': 'aggregator',
+        'PASSWORD': 'Aggregator2018',
+        'HOST': 'db',   # Or an IP Address that your DB is hosted on
+        'PORT': '3306',
+    },
 }
 
 
@@ -116,23 +124,20 @@ USE_L10N = True
 
 USE_TZ = True
 
+PROJECT_DIR = os.path.dirname(__file__)
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.11/howto/static-files/
+APP_DIR = os.path.abspath(os.path.join(PROJECT_DIR, os.pardir, os.pardir))
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [
-    ('node_modules', os.path.join(BASE_DIR, 'node_modules')),
-    os.path.join(BASE_DIR, 'assets/js'),
-]
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    )
+STATICFILES_DIRS = (
+  os.path.join(BASE_DIR, 'static/'),
 
-WEBPACK_LOADER = {
-    'DEFAULT': {
-        'BUNDLE_DIR_NAME': 'bundles/',
-        'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
-    }
-}
+)
 
+FORM_RENDERER = 'djng.forms.renderers.DjangoAngularBootstrap3Templates'
 
-TEST_DIRECT_STATIC = os.path.join(BASE_DIR, 'assets')

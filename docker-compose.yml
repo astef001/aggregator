@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  db:
+    image: "mysql"
+    container_name: db
+    command: mysqld
+    volumes:
+       - dbdata:/var/lib/mysql
+    ports:
+       - "3306:3306"
+    environment:
+       MYSQL_ROOT_PASSWORD: root_password
+       MYSQL_DATABASE: aggregator
+       MYSQL_USER: aggregator
+       MYSQL_PASSWORD: Aggregator2018
+    networks:
+       - aggregator
+
+
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/aggregator
+    container_name: django
+    networks:
+        - aggregator
+    depends_on:
+      - db
+
+volumes:
+  dbdata:
+
+networks:
+  aggregator:
+    driver: bridge
+
