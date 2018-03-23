@@ -7,7 +7,7 @@ from django.db import models
 
 
 class SearchPlace(models.Model):
-    id = models.IntegerField(primary_key=True, blank=False, null=False)
+    id = models.IntegerField(primary_key=True, blank=False, null=False, verbose_name="Id")
     name = models.CharField(max_length=100,
                             blank=False,
                             null=False,
