@@ -1,0 +1,22 @@
+{
+  "name": "aggregator",
+  "version": "1.0.0",
+  "description": "<b>Requirements:</b> <ul> <li>virualenv</li> <li>python-pip</li>",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/astef001/aggregator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/astef001/aggregator/issues"
+  },
+  "homepage": "https://github.com/astef001/aggregator#readme",
+  "dependencies": {
+    "angular": "^1.6.9"
+  }
+}

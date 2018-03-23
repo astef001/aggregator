@@ -22,7 +22,7 @@ import search.views
 urlpatterns = [
     url(r'^results_collector/', include('results_collector.urls')),
     url(r'^admin/', admin.site.urls),
-    url(r'^search/', search.views.search),
+    url(r'^search/', search.views.SearchView.as_view(), name="search_view"),
     url(r'^add_search_place/', search.views.add_search_place),
-    url(r'^.*$', RedirectView.as_view(url='search/', permanent=False), name='index')
+    #url(r'^.*$', RedirectView.as_view(url='search/', permanent=False), name='index')
 ]
