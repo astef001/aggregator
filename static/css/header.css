@@ -1,0 +1,26 @@
+.search_form_header{
+    postion: relative;
+    float:right;
+}
+.search_form_header div{
+    display: none;
+    float:right;
+}
+div.has-feedback:first-of-type {
+    display:inline-block;
+    veritcal-align:middle;
+}
+div.has-feedback:first-of-type label{
+    margin-top:5px;
+}
+.search_form_header input[type='text']{
+    display:inline;
+    margin-left:10px;
+    width:60%;
+}
+.search_form_header button{
+    dispaly:inline;
+    float:right;
+    background-color:#71a4f7;
+    color: white;
+}

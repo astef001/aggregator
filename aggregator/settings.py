@@ -39,11 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'results_collector',
     'search',
-<<<<<<< HEAD
-    'webpack_loader'
-=======
-    'djng'
->>>>>>> 2efcbadcc5b83e9a011d0007e8a60fa280d21a5e
+    'djng',
+    'sekizai'
 ]
 
 MIDDLEWARE = [
@@ -69,6 +66,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'sekizai.context_processors.sekizai'
             ],
         },
     },
@@ -89,6 +87,7 @@ DATABASES = {
         'HOST': 'db',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     },
+
 }
 
 

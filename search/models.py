@@ -7,7 +7,7 @@ from django.db import models
 
 
 class SearchPlace(models.Model):
-    id = models.IntegerField(primary_key=True, blank=False, null=False, verbose_name="Id")
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100,
                             blank=False,
                             null=False,
@@ -75,7 +75,7 @@ class SearchPlace(models.Model):
 
 
 class Category(models.Model):
-    id = models.IntegerField(primary_key=True, blank=False, null=False)
+    id = models.AutoField(primary_key=True)
     search_place = models.ForeignKey(SearchPlace)
     name = models.CharField(max_length=100,
                             blank=False,

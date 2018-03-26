@@ -9,11 +9,18 @@ class SearchForm(Bootstrap3Form):
     OPTIONS = [(x.get('id'), x.get('name')) for x in search_places]
     search_string = fields.CharField(label="Search", max_length=100)
     search_on = fields.MultipleChoiceField(label="Search On",
-                                          choices=OPTIONS,
-                                          widget=forms.CheckboxSelectMultiple)
+                                           choices=OPTIONS,
+                                           widget=forms.CheckboxSelectMultiple)
 
 
-class AddSearchPlaceForm(Bootstrap3Form):
+class AddSearchPlaceForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(AddSearchPlaceForm, self).__init__(*args, **kwargs)
+        for field in iter(self.fields):
+            self.fields[field].widget.attrs.update({
+                'class': 'form-control'
+        })
+
     class Meta:
         model = SearchPlace
         exclude = ['id']

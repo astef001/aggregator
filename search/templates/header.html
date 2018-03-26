@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static djng_tags sekizai_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block css %}
+    {% addtoblock "css" %}
+        <link href="{% static 'css/header.css' %}" rel="stylesheet" />
+    {% endaddtoblock %}
+    {% endblock %}
+</head>
+<body>
+
+{% block content %}
+<div ng-controller="basicSearch">
+<form class='search_form_header' name="search_form_simple" action="/results_collector/get_data/" method="POST">
+    <button ng-click="basicSearchAction()" type="button" class="btn btn-default">
+        <span class="glyphicon glyphicon-search"></span>
+    </button>
+    {% csrf_token %}
+    {{ form.as_div }}
+</form>
+</div>
+{% endblock %}
+{% block js %}
+    {% addtoblock "js" %}
+        <script src="{% static 'js/header.js' %}"></script>
+    {% endaddtoblock %}
+{% endblock %}
+</body>
+</html>
