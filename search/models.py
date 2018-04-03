@@ -16,6 +16,10 @@ class SearchPlace(models.Model):
                            blank=False,
                            null=False,
                            unique=True)
+    vendor_logo = models.CharField(max_length=100,
+                                   blank=False,
+                                   null=False,
+                                   unique=True)
     product_tag = models.CharField(max_length=100,
                                    blank=False,
                                    null=False)

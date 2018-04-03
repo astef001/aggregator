@@ -3,16 +3,18 @@ from math import pow
 
 
 def get_image_from_tag(tag):
-    img = tag.find('img')
-    for attr in img.attrs:
-        if attr[0] == 'src':
-            return attr[1]
+    try:
+        img = tag.find('img')
+        return img.attrs.get('src')
+    except:
+        return None
 
 
 def get_link_from_tag(tag):
-    for attr in tag.attrs:
-        if attr[0] == 'href':
-            return attr[1]
+    try:
+        return tag.attrs.get('href')
+    except:
+        return None
 
 
 def get_attr(data, map, post_process=None, pp_extra_param=None):
@@ -35,7 +37,10 @@ def get_price_from_tag(tag, dec):
 
 
 def get_name_from_tag(tag):
-    return tag.text
+    try:
+        return tag.text
+    except:
+        return None
 
 
 def get_data_map_from_object(object, prefix, extra_params=[]):
@@ -60,13 +65,15 @@ def get_products(data, location, vendor):
         link = get_attr(product, get_data_map_from_object(location,"link"), get_link_from_tag)
         price = get_attr(product, get_data_map_from_object(location,"price"), get_price_from_tag, location.price_decimal)
         name = get_attr(product, get_data_map_from_object(location,"name"), get_name_from_tag)
-        results[name]={
-            'vendor': [vendor],
-            'image': image,
-            'link': [link],
-            'price': [price]
-        }
-    return results;
+        if image and link and price and name:
+            results[name]={
+                'vendor': [location.vendor_logo],
+                'image': image,
+                'link': [link],
+                'price': [price],
+                'range': range(0, 1)
+            }
+    return results
 
 
 def update_dict(dest, source, vendor_name):
@@ -75,6 +82,7 @@ def update_dict(dest, source, vendor_name):
             dest[key]['vendor'].extend(vendor_name)
             dest[key]['price'].extend(source[key].get('price'))
             dest[key]['link'].extend(source[key].get('link'))
+            dest[key]['range']=range(0, dest[key]['price'].length-1)
         else:
             dest[key]=source[key]
-    return dest;
+    return dest

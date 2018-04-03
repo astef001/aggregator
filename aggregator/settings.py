@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'results_collector',
     'search',
     'djng',
-    'sekizai'
+    'sekizai',
+    'widget_tweaks'
 ]
 
 MIDDLEWARE = [

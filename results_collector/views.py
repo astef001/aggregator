@@ -5,10 +5,11 @@ from django.shortcuts import render
 import requests
 from utils import update_dict, get_products
 from search.models import SearchPlace
-
+import json
+from search.forms import SearchForm
 
 def get_data(request):
-    search_string = request.POST.get('search_string')
+    search_string = request.POST.get('search_string')    
     products = {}
     locations = SearchPlace.objects.filter(id__in=request.POST.get('search_on'))
     for location in locations:
@@ -20,7 +21,7 @@ def get_data(request):
             products = response
         else:
             products = update_dict(products, response, location.name)
-    return render(request, 'results.html', {'data': products})
+    return render(request, 'results.html', {'data': products, 'form': SearchForm()})
 
 
 

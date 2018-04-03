@@ -1,37 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Results</title>
-</head>
-<body>
-{% for key,value in data.items %}
-    <ul>
-        <li>Name: {{key}}</li>
-        <li>Image link: {{value.image}}</li>
-        <li>Vendors:
-            <ul>
-                {% for vendor in value.vendor %}
-                    <li>{{vendor}}</li>
-                {% endfor %}
-            </ul>
-        </li>
-        <li>Links:
-            <ul>
-                {% for link in value.link %}
-                    <li>{{link}}</li>
-                {% endfor %}
-            </ul>
-        </li>
-        <li>Prices:
-            <ul>
-                {% for price in value.price %}
-                    <li>{{price}}</li>
-                {% endfor %}
-            </ul>
-        </li>
-    </ul>
+{% extends "header.html" %}
 
-{% endfor %}
-</body>
-</html>
+{% load static djng_tags sekizai_tags widget_tweaks templatetags %}
+<head>
+    {% block css %}
+    {{ block.super }}
+    {% addtoblock "css" %}
+        <link href="{% static 'css/product.css' %}" rel="stylesheet" />
+    {% endaddtoblock %}
+    {% endblock %}
+</head>
+{% block content %}
+{{ block.super }}
+<div class="container">
+    <div id="products" class="row list-group">
+        {% for key,value in data.items %}
+            <div class="item  col-xs-4 col-lg-4">
+                <div class="thumbnail">
+                    <img class="group list-group-image" src="{{value.image}}" alt="" />
+                    <div class="caption">
+                        <h4 class="group inner list-group-item-heading">
+                            {{key}}</h4>
+                        <div class="row price-row">
+                            <div class="col-xs-12 col-md-12">
+                                {% for x in value.range %}
+                                <a href="{{value.link|index:x}}" class="vendor-link">
+                                <div class="lead">    
+                                    <img class='logo' src="{{ value.vendor|index:x }}">
+                                    <div class='price'>RON {{ value.price|index:x }}</div>
+                                </div>
+                                </a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

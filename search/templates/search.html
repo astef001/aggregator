@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "header.html" %}
 {% load static djng_tags sekizai_tags %}
 <!DOCTYPE html>
 <html lang="en" ng-app="aggregator">
@@ -10,6 +10,7 @@
 asfdsfsjdsifjdsfj
 {% endaddtoblock %}
 {% block content %}
+{{block.super}}
 <form name="search_form" action="/results_collector/get_data/" method="POST">
     {% csrf_token %}
     {{ form.as_div }}
