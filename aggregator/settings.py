@@ -128,7 +128,7 @@ PROJECT_DIR = os.path.dirname(__file__)
 
 APP_DIR = os.path.abspath(os.path.join(PROJECT_DIR, os.pardir, os.pardir))
 
-STATIC_URL = '/static/'
+STATIC_URL = '/staticfiles/'
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -138,6 +138,8 @@ STATICFILES_DIRS = (
   os.path.join(BASE_DIR, 'static/'),
 
 )
+
+STATIC_ROOT=os.path.join(BASE_DIR, 'staticfiles/')
 
 FORM_RENDERER = 'djng.forms.renderers.DjangoAngularBootstrap3Templates'
 
