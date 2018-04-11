@@ -1,23 +1,56 @@
 {% extends "header.html" %}
-{% load static djng_tags sekizai_tags %}
+{% load static djng_tags sekizai_tags widget_tweaks templatetags %}
 <!DOCTYPE html>
 <html lang="en" ng-app="aggregator">
 <head>
     <title>Search</title>
 </head>
 <body>
+{% block css %}
+{{block.super}}
 {% addtoblock "css" %}
-asfdsfsjdsifjdsfj
+        <link href="{% static 'node_modules/bootstrap-select/dist/css/bootstrap-select.min.css' %}" rel="stylesheet" />
+        <link href="{% static 'css/search.css' %}" rel="stylesheet" />
 {% endaddtoblock %}
+{% endblock %}
 {% block content %}
 {{block.super}}
-<form name="search_form" action="/results_collector/get_data/" method="POST">
-    {% csrf_token %}
-    {{ form.as_div }}
-    <input type="submit" value="Submit" />
-    <br>
-    <a href="/add_search_place/">Add New Search Place</a>
-</form>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-md-12">
+            <form name="search_form" action="/results_collector/get_data/" method="POST">
+                {% csrf_token %}
+                {% for field in form %}
+                    {% if field.name == 'search_on' %}
+                        <div class="form-group">
+                            {{ field.label_tag }}
+                            <select name="search_on[]" title="Search On" data-actions-box="true" class="selectpicker" data-live-search="true" multiple required>
+                            {% for value, text in form.fields.search_on.choices %}
+                                <option value="{{value}}">{{text}}</option>
+                                {% endfor %}
+                            </select>
+                            </div>
+                    {% else %}
+                        <div class="form-group">
+                            {{ field.label_tag }}
+                            {% render_field field %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                <input type="submit" value="Submit" />
+                <br>
+                <a href="/add_search_place/">Add New Search Place</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+{{block.super}}
+{% addtoblock 'js' %}
+    <script src="{% static 'node_modules/bootstrap-select/dist/js/bootstrap-select.min.js' %}"></script>
+{% endaddtoblock %}
 {% endblock %}
 </body>
 </html>

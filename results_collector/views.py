@@ -9,9 +9,12 @@ import json
 from search.forms import SearchForm
 
 def get_data(request):
-    search_string = request.POST.get('search_string')    
+    search_string = request.POST.get('search_string')
     products = {}
-    locations = SearchPlace.objects.filter(id__in=request.POST.get('search_on'))
+    search_on = request.POST.get('search_on')
+    if not search_on:
+        search_on = request.POST.get('search_on[]')
+    locations = SearchPlace.objects.filter(id__in=search_on)
     for location in locations:
         url = "%s%s" % (location.url, search_string)
         response = requests.get(url,{'User-Agent':'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0'})

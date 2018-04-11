@@ -14,7 +14,7 @@
 <div class="container">
     <div id="products" class="row list-group">
         {% for key,value in data.items %}
-            <div class="item  col-xs-4 col-lg-4">
+            <div class="item  col-xs-12 col-lg-4">
                 <div class="thumbnail">
                     <img class="group list-group-image" src="{{value.image}}" alt="" />
                     <div class="caption">
@@ -24,14 +24,18 @@
                             <div class="col-xs-12 col-md-12">
                                 {% for x in value.range %}
                                 <a href="{{value.link|index:x}}" class="vendor-link">
-                                <div class="lead">    
-                                    <img class='logo' src="{{ value.vendor|index:x }}">
-                                    <div class='price'>RON {{ value.price|index:x }}</div>
+                                <div class="lead">
+                                    <img class='logo' src="{% min_vendor value.price value.vendor %}">
+                                    <div class='price'>RON {{value.price|min_price}}</div>
                                 </div>
                                 </a>
+
                                 {% endfor %}
                             </div>
                         </div>
+                    </div>
+                    <div class="shops-count">
+                        {{value.vendor|list_count}} Magazin(e)
                     </div>
                 </div>
             </div>

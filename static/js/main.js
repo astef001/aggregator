@@ -11,3 +11,5 @@ aggregator.config(['$httpProvider', function($httpProvider) {
     $cookies = _$cookies_;
   }]);
 }]);
+
+angular.element(document).ready(function () { $('select').selectpicker("destroy"); $('select').selectpicker("render"); });

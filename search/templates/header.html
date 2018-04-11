@@ -30,6 +30,7 @@
         <ul class="nav navbar-nav">
           <li ng-class="{ active: isActive('/')}"><a href="/" target="_self">Acasa<span class="sr-only">(current)</span></a></li>
           <li ng-class="{ active: isActive('/search/')}"><a href="/search/" target="_self">Cautare Avansata</a></li>
+          <li ng-class="{ active: isActive('/add_search_place/')}"><a href="/add_search_place/" target="_self">Adaugare index</a>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <form class="navbar-form navbar-right"  name="search_form_simple" action="/results_collector/get_data/" method="POST">
@@ -55,13 +56,6 @@
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
   </nav>
-
-
-
-
-
-
-
 {% endblock %}
 {% block js %}
     {% addtoblock "js" %}

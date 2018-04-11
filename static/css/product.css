@@ -19,3 +19,8 @@ a.vendor-link{
     text-decoration: none;
     color:black
 }
+div.shops-count{
+  width: 50%;
+  margin: 0 auto;
+  text-align:center;
+}
