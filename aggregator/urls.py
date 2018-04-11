@@ -25,5 +25,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^search/', search.views.SearchView.as_view(), name="search_view"),
     url(r'^add_search_place/', search.views.AddSearchPlaceView.as_view(), name="add_search_place_view"),
-    url(r'^$', search.views.IndexView.as_view(), name='index')
+    url(r'^$', search.views.IndexView.as_view(), name='index'),
+    url(r'^silk/', include('silk.urls', namespace='silk'))
 ]
