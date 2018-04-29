@@ -24,3 +24,15 @@ div.shops-count{
   margin: 0 auto;
   text-align:center;
 }
+h4.title{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: block;
+    overflow: hidden
+}
+div.thumbnail img.group.list-group-image{
+    height:140px;
+}
+div.caption{
+height:120px;
+}
