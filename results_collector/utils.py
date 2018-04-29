@@ -11,10 +11,17 @@ def get_image_from_tag(tag):
 
 
 def get_link_from_tag(tag):
-    try:
-        return tag.attrs.get('href')
-    except:
-        return None
+    if tag:
+        try:
+            result = tag.attrs.get('href', None)
+            if not result:
+                raise AttributeError
+            return result
+        except AttributeError:
+            tag = tag.find('a')
+            if tag:
+                return tag.attrs.get('href', None)
+    return None
 
 
 def get_attr(data, map, post_process=None, pp_extra_param=None):

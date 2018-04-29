@@ -7,7 +7,7 @@
 </head>
 <body>
 {% block content %}
-<form name="search_form" action="/results_collector/get_data/" method="POST">
+<form name="search_form" action="/add_search_place/" method="POST">
     {% csrf_token %}
     {{ form }}
     <input type="submit" value="Submit" />

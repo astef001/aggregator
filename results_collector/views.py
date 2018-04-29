@@ -11,9 +11,9 @@ from search.forms import SearchForm
 def get_data(request):
     search_string = request.POST.get('search_string')
     products = {}
-    search_on = request.POST.get('search_on')
+    search_on = request.POST.getlist('search_on')
     if not search_on:
-        search_on = request.POST.get('search_on[]')
+        search_on = request.POST.getlist('search_on[]')
     locations = SearchPlace.objects.filter(id__in=search_on)
     for location in locations:
         url = "%s%s" % (location.url, search_string)

@@ -1,7 +1,7 @@
 from django import forms
 from search.models import SearchPlace
 from djng.forms import fields
-from djng.styling.bootstrap3.forms import Bootstrap3Form
+from djng.styling.bootstrap3.forms import Bootstrap3Form, Bootstrap3ModelForm
 
 
 class SearchForm(Bootstrap3Form):
@@ -13,7 +13,7 @@ class SearchForm(Bootstrap3Form):
                                            widget=forms.CheckboxSelectMultiple)
 
 
-class AddSearchPlaceForm(forms.ModelForm):
+class AddSearchPlaceForm(Bootstrap3ModelForm):
     def __init__(self, *args, **kwargs):
         super(AddSearchPlaceForm, self).__init__(*args, **kwargs)
         for field in iter(self.fields):

@@ -1,8 +1,8 @@
 from forms import SearchForm, AddSearchPlaceForm
 from django.views.generic.edit import FormView
 from django.views.generic import TemplateView
-from django.core.urlresolvers import reverse_lazy
-from django.shortcuts import render
+from search.models import SearchPlace
+from django.http import HttpResponseRedirect
 
 
 class SearchView(FormView):
@@ -12,6 +12,16 @@ class SearchView(FormView):
 class AddSearchPlaceView(FormView):
     template_name = "add_search_place.html"
     form_class = AddSearchPlaceForm
+
+    def post(self, request):
+        params = dict(request.POST.iterlists())
+        params.pop('csrfmiddlewaretoken', None)
+        for param in params:
+            params[param] = params[param].pop(0)
+        SearchPlace.objects.create(**params)
+        return HttpResponseRedirect('/')
+
+
 
 class IndexView(TemplateView):
     template_name="index.html"
