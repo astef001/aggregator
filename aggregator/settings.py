@@ -87,7 +87,7 @@ DATABASES = {
         'NAME': 'aggregator',
         'USER': 'aggregator',
         'PASSWORD': 'Aggregator2018',
-        'HOST': 'db',   # Or an IP Address that your DB is hosted on
+        'HOST': 'aggregator-web.clxqszc3xsl1.us-east-2.rds.amazonaws.com',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     },
 
