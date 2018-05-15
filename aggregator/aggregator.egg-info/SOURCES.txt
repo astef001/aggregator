@@ -1,0 +1,4 @@
+aggregator.egg-info/PKG-INFO
+aggregator.egg-info/SOURCES.txt
+aggregator.egg-info/dependency_links.txt
+aggregator.egg-info/top_level.txt

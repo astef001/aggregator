@@ -1,0 +1,38 @@
+div.container{
+    position:relative;
+    top:150px;
+}
+div.lead{
+    width:100%
+}
+img.logo{
+    float:left;
+    width:90px;
+}
+div.price{
+    float:right;
+}
+div.price-row{
+    margin-top:1em;
+}
+a.vendor-link{
+    text-decoration: none;
+    color:black
+}
+div.shops-count{
+  width: 50%;
+  margin: 0 auto;
+  text-align:center;
+}
+h4.title{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: block;
+    overflow: hidden
+}
+div.thumbnail img.group.list-group-image{
+    height:140px;
+}
+div.caption{
+height:120px;
+}

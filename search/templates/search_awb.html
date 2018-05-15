@@ -1,0 +1,48 @@
+{% extends "header.html" %}
+{% load static djng_tags sekizai_tags widget_tweaks templatetags %}
+<!DOCTYPE html>
+<html lang="en" ng-app="aggregator">
+<head>
+    <title>Search</title>
+</head>
+<body>
+{% block css %}
+{{block.super}}
+{% addtoblock "css" %}
+        <link href="{% static 'node_modules/bootstrap-select/dist/css/bootstrap-select.min.css' %}" rel="stylesheet" />
+        <link href="{% static 'css/search.css' %}" rel="stylesheet" />
+{% endaddtoblock %}
+{% endblock %}
+{% block content %}
+{{block.super}}
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-md-12">
+            <form name="search_awb" action="/search_awb/" method="POST">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="form-group">
+                        {{ field.label_tag }}
+                        {% render_field field %}
+                    </div>
+                {% endfor %}
+                <input class="btn btn-default" type="submit" value="Submit" />
+            </form>
+        </div>
+        <div>{% if result %}
+                {% for step in result %}
+                    {{step}}<br>
+                {% endfor %}
+            {% endif %}</div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+{{block.super}}
+{% addtoblock 'js' %}
+    <script src="{% static 'node_modules/bootstrap-select/dist/js/bootstrap-select.min.js' %}"></script>
+{% endaddtoblock %}
+{% endblock %}
+</body>
+</html>
