@@ -36,18 +36,20 @@ class Command(BaseCommand):
             for category in categories:
                 if search_place.category_tag != 'a':
                     category_links = category.findAll('a')
-                    for link in category_links:
-                        category_name = link.text.strip()
-                        category_link = link.attrs.get('href', "")
-                        logger.info("\tUpdating category %s for %s" % (category_name, search_place.name))
-                        try:
-                            Category.objects.get((models.Q(name=category_name)|
-                                                  models.Q(link=category_link))&
-                                                  models.Q(search_place=search_place))
-                            logger.info("\t\tCategory %s for %s already up to date" % (category_name, search_place.name))
-                        except Category.DoesNotExist:
-                            logger.warning("\t\tUpdating category %s for %s not found. Creating..." % (category_name, search_place.name))
-                            Category.objects.create(name=category_name, search_place=search_place)
-                            logger.info("\t\t\tCategory %s for %s created" % (category_name, search_place.name))
+                    link = category_links[0]
+                    category_name = link.text.strip()
+                    category_link = link.attrs.get('href', "")
+                    logger.info("\tUpdating category %s for %s" % (category_name, search_place.name))
+                    try:
+                        Category.objects.get((models.Q(name=category_name)|
+                                              models.Q(link=category_link))&
+                                              models.Q(search_place=search_place))
+                        logger.info("\t\tCategory %s for %s already up to date" % (category_name, search_place.name))
+                    except Category.DoesNotExist:
+                        logger.warning("\t\tUpdating category %s for %s not found. Creating..." % (category_name, search_place.name))
+                        Category.objects.create(name=category_name,
+                                                search_place=search_place,
+                                                link=category_link)
+                        logger.info("\t\t\tCategory %s for %s created" % (category_name, search_place.name))
             logger.info("Categories for %s updated" % search_place.name)
 

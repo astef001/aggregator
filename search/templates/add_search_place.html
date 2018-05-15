@@ -1,5 +1,5 @@
-{% extends "base.html" %}
-{% load static djng_tags %}
+{% extends "header.html" %}
+{% load static djng_tags sekizai_tags widget_tweaks templatetags %}
 <!DOCTYPE html>
 <html lang="en" ng-app="aggregator">
 <head>
@@ -7,11 +7,23 @@
 </head>
 <body>
 {% block content %}
+{{block.super}}
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-md-12">
 <form name="search_form" action="/add_search_place/" method="POST">
     {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="Submit" />
+    {% for field in add_form %}
+                        <div class="form-group">
+                            {{ field.label_tag }}
+                            {% render_field field %}
+                        </div>
+                {% endfor %}
+    <input class='btn btn-default' type="submit" value="Submit" />
 </form>
+        </div>
+    </div>
+</div>
 {% endblock %}
 </body>
 </html>

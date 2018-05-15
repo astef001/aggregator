@@ -7,6 +7,7 @@ from django.db import models
 
 
 class SearchPlace(models.Model):
+    """This Model is meant to store all search places needed data for searching through them"""
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100,
                             blank=False,
@@ -79,6 +80,7 @@ class SearchPlace(models.Model):
 
 
 class Category(models.Model):
+    """This model is meant to store data for categories extracted from search places"""
     id = models.AutoField(primary_key=True)
     search_place = models.ForeignKey(SearchPlace)
     name = models.CharField(max_length=100,
@@ -87,3 +89,34 @@ class Category(models.Model):
     link = models.CharField(max_length=100,
                             blank=True,
                             null=False)
+
+
+class Courier(models.Model):
+    id = models.AutoField(primary_key=True)
+    url = models.CharField(max_length=100,
+                           blank=False,
+                           null=False)
+    result_tag = models.CharField(max_length=100,
+                                  blank=False,
+                                  null=False)
+    result_attribute = models.CharField(max_length=100,
+                                        blank=True,
+                                        null=True)
+    result_value = models.CharField(max_length=100,
+                                    blank=True,
+                                    null=True)
+    is_json = models.BooleanField(default=False)
+
+
+class CourierParams(models.Model):
+    id = models.AutoField(primary_key=True)
+    courier_id = models.ForeignKey(Courier)
+    param_label = models.CharField(max_length=100,
+                                   blank=False,
+                                   null=False)
+    param_value = models.CharField(max_length=100,
+                                   blank=True,
+                                   null=True)
+
+    class Meta:
+        unique_together = ("courier_id", "param_label")

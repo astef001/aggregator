@@ -24,7 +24,8 @@ urlpatterns = [
     url(r'^results_collector/', include('results_collector.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^search/', search.views.SearchView.as_view(), name="search_view"),
-    url(r'^add_search_place/', search.views.AddSearchPlaceView.as_view(success_url="/search/"), name="add_search_place_view"),
+    url(r'^add_search_place/', search.views.AddSearchPlaceView.as_view(), name="add_search_place_view"),
     url(r'^$', search.views.IndexView.as_view(), name='index'),
-    url(r'^silk/', include('silk.urls', namespace='silk'))
+    url(r'^silk/', include('silk.urls', namespace='silk')),
+    url(r'^search_awb/', search.views.SearchAWB.as_view(), name="search_awb_view")
 ]

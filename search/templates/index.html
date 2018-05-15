@@ -1,3 +1,25 @@
 {% extends "header.html" %}
 {% load static djng_tags sekizai_tags %}
+{% block css %}
+{{block.super}}
+{% addtoblock "css" %}
+        <link href="{% static 'css/category_list.css' %}" rel="stylesheet" />
+{% endaddtoblock %}
+{% endblock %}
 
+{% block content %}
+{{block.super}}
+<input type="text" id="categoriesSearch" onkeyup="search()" placeholder="Search for categories..">
+<ul id="categories">
+{% for category in categories %}
+    <li><a href='{{category.link}}'>{{category.name}}</a></li>
+{% endfor %}
+</ul>
+{% endblock %}
+
+{% block js %}
+{{block.super}}
+{% addtoblock 'js' %}
+    <script src="{% static 'js/category_list.js' %}"></script>
+{% endaddtoblock %}
+{% endblock %}

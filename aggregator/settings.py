@@ -37,12 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'haystack',
     'results_collector',
     'search',
     'djng',
     'sekizai',
     'widget_tweaks',
-    'silk'
+    'silk',
+    'sphinxdoc'
 ]
 
 MIDDLEWARE = [
@@ -87,7 +89,7 @@ DATABASES = {
         'NAME': 'aggregator',
         'USER': 'aggregator',
         'PASSWORD': 'Aggregator2018',
-        'HOST': 'aggregator-web.clxqszc3xsl1.us-east-2.rds.amazonaws.com',   # Or an IP Address that your DB is hosted on
+        'HOST': 'db',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     },
 
@@ -144,4 +146,10 @@ STATICFILES_DIRS = (
 STATIC_ROOT=os.path.join(BASE_DIR, 'staticfiles/')
 
 FORM_RENDERER = 'djng.forms.renderers.DjangoAngularBootstrap3Templates'
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.simple_backend.SimpleEngine',
+    },
+}
 

@@ -11,21 +11,32 @@ from multiprocessing import Pool, cpu_count
 import time
 
 def get_products_from_url(url, location):
-    response = requests.get(url,{'User-Agent':'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0'})
+    """This method is meant to extract products from a get response
+       :param url - site to search url
+       :param location - SearchPlace location
+       :return Dictionary with objects"""
+    response = requests.get(url,
+                            headers={'User-Agent':'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0'})
     response = response.text
-    response = get_products(response, location, location.name)
+    response = get_products(response, location)
     product_dict={}
     update_dict(product_dict, response, location.name)
     return product_dict
 
 def function_wrapper(tp):
+    """This method represent a funtion wrapper used to map get_products_from_url multiple parameters for
+    threading
+        :param tp - tuple containing parameters for funtion
+        :returns get_products_from_url response from one thread"""
     return get_products_from_url(*tp)
 
 
 def get_data(request):
+    """ This method is meant to get all results from all selected locations whitch match the searched string
+        :param request - request object sent by the browser
+        :returns Dictionary with products from every selected vendor"""
     search_string = request.POST.get('search_string')
     products={}
-    threads=[]
     search_data = []
     search_on = request.POST.getlist('search_on')
     if not search_on:
