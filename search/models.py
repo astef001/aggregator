@@ -114,7 +114,7 @@ class CourierParams(models.Model):
     param_label = models.CharField(max_length=100,
                                    blank=False,
                                    null=False)
-    param_value = models.CharField(max_length=100,
+    param_value = models.CharField(max_length=1500,
                                    blank=True,
                                    null=True)
 

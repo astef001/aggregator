@@ -6,6 +6,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from search.utils import get_package_status
 
+
 class SearchView(FormView):
     """This view is meant to build the search form"""
     template_name = "search.html"
@@ -47,6 +48,7 @@ class IndexView(TemplateView):
         context.update({"categories": categories, "form":SearchForm})
         return context
 
+
 class SearchAWB(FormView):
     template_name = "search_awb.html"
     form_class = SearchAWBForm
@@ -54,5 +56,5 @@ class SearchAWB(FormView):
     def post(self, request):
         params = dict(request.POST.iterlists())
         params = params.pop("awb")[0]
-        return render(request, 'search_awb.html', {"form":SearchAWBForm(), "result": get_package_status(params)})
+        return render(request, 'search_awb.html', {"form": SearchAWBForm(), "result": get_package_status(params)})
 

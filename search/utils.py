@@ -5,11 +5,12 @@ import re
 import json
 from search.models import CourierParams
 
+
 def get_package_status(awb):
     couriers = Courier.objects.all()
     for courier in couriers:
         result = scrap_courier(courier, awb)
-        if result:
+        if result and "Inexistent" not in result:
             return result
     return None
 
@@ -34,7 +35,7 @@ def scrap_courier(courier, awb):
             except AttributeError:
                 pass
         if [s for s in status if s is not None]:
-            result=[]
+            result = []
             for step in status:
                 result.append("{} {}".format(step.get('mstex'), step.get('dstex')))
             return result

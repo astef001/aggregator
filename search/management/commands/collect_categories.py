@@ -25,31 +25,32 @@ class Command(BaseCommand):
             regex = re.compile("(http(s)?:\/\/[A-Za-z\.\-1-9]*\/?)")
             url = regex.match(url)
             if not url:
-                continue;
+                continue
             url = url.group(0)
-            response = requests.get(url,{'User-Agent':'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0'})
+            response = requests.get(url, {'User-Agent':'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0'})
             response = response.text
-            bs = BeautifulSoup(response, 'html5lib')
-
+            bs = BeautifulSoup(response)
             categories = bs.findAll(search_place.category_tag,
                                     {search_place.category_attribute: search_place.category_value})
             for category in categories:
                 if search_place.category_tag != 'a':
                     category_links = category.findAll('a')
-                    link = category_links[0]
-                    category_name = link.text.strip()
-                    category_link = link.attrs.get('href', "")
-                    logger.info("\tUpdating category %s for %s" % (category_name, search_place.name))
-                    try:
-                        Category.objects.get((models.Q(name=category_name)|
-                                              models.Q(link=category_link))&
-                                              models.Q(search_place=search_place))
-                        logger.info("\t\tCategory %s for %s already up to date" % (category_name, search_place.name))
-                    except Category.DoesNotExist:
-                        logger.warning("\t\tUpdating category %s for %s not found. Creating..." % (category_name, search_place.name))
-                        Category.objects.create(name=category_name,
-                                                search_place=search_place,
-                                                link=category_link)
-                        logger.info("\t\t\tCategory %s for %s created" % (category_name, search_place.name))
+                else:
+                    category_links = [category]
+                link = category_links[0]
+                category_name = link.text.strip()
+                category_link = link.attrs.get('href', "")
+                logger.info("\tUpdating category %s for %s" % (category_name, search_place.name))
+                try:
+                    Category.objects.get((models.Q(name=category_name)|
+                                          models.Q(link=category_link))&
+                                          models.Q(search_place=search_place))
+                    logger.info("\t\tCategory %s for %s already up to date" % (category_name, search_place.name))
+                except Category.DoesNotExist:
+                    logger.warning("\t\tUpdating category %s for %s not found. Creating..." % (category_name, search_place.name))
+                    Category.objects.create(name=category_name,
+                                            search_place=search_place,
+                                            link=category_link)
+                    logger.info("\t\t\tCategory %s for %s created" % (category_name, search_place.name))
             logger.info("Categories for %s updated" % search_place.name)
 

@@ -103,12 +103,16 @@ def get_products(data, location):
     products = bs.findAll(product_map.get('tag'),
                           {product_map.get('attribute'): product_map.get('value')})
     for product in products:
-        image = get_attr(product, get_data_map_from_object(location,"image"), get_image_from_tag)
-        link = get_attr(product, get_data_map_from_object(location,"link"), get_link_from_tag)
-        price = get_attr(product, get_data_map_from_object(location,"price"), get_price_from_tag, location.price_decimal)
-        name = get_attr(product, get_data_map_from_object(location,"name"), get_name_from_tag)
+        image = get_attr(product, get_data_map_from_object(location, "image"), get_image_from_tag)
+        print("iamge", image)
+        link = get_attr(product, get_data_map_from_object(location, "link"), get_link_from_tag)
+        print("link", link)
+        price = get_attr(product, get_data_map_from_object(location, "price"), get_price_from_tag, location.price_decimal)
+        print("price", price)
+        name = get_attr(product, get_data_map_from_object(location, "name"), get_name_from_tag)
+        print("name", name)
         if image and link and price and name:
-            results[name]={
+            results[name] = {
                 'vendor': [location.vendor_logo],
                 'image': image,
                 'link': [link],
@@ -130,5 +134,5 @@ def update_dict(dest, source, vendor_name):
             dest[key]['link'].extend(source[key].get('link'))
             dest[key]['range']=range(0, dest[key]['price'].length-1)
         else:
-            dest[key]=source[key]
+            dest[key] = source[key]
     return dest
